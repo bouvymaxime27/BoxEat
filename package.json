@@ -4,7 +4,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
-    "web": "expo start --web --port 5000 --host 0.0.0.0",
+    "web": "EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0 expo start --web --port 5000",
     "android": "expo run:android",
     "ios": "expo run:ios"
   },
@@ -17,6 +17,8 @@
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-native": "0.74.0",
+    "react-native-safe-area-context": "^5.6.1",
+    "react-native-screens": "^4.18.0",
     "react-native-web": "^0.21.2",
     "zustand": "^4.5.0"
   }
