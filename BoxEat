@@ -1,0 +1,18 @@
+boxeat/
+ ├─ App.js
+ ├─ package.json
+ ├─ babel.config.js
+ ├─ app.json
+ ├─ src/
+ │   ├─ theme.js
+ │   ├─ navigation.js
+ │   ├─ screens/
+ │   │   ├─ HomeScreen.js
+ │   │   ├─ MenuScreen.js
+ │   │   ├─ CartScreen.js
+ │   │   └─ CheckoutScreen.js
+ │   ├─ store/
+ │   │   └─ cart.store.js
+ │   └─ services/
+ │       └─ api.js
+ └─ README.md
