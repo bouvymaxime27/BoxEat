@@ -1,17 +1,6 @@
-# .replit (TOML = format d'ini amélioré)
-entrypoint = "index.js"
-
-[env]
-EXPO_NO_TELEMETRY = "1"
-EXPO_USE_DEV_SERVER = "true"
-EXPO_DEVTOOLS_LISTEN_ADDRESS = "0.0.0.0"
-REACT_NATIVE_PACKAGER_HOSTNAME = "0.0.0.0"
-
-[interpreter]
-command = ["bash", "-lc"]
-
-# Installe les deps si besoin puis démarre Expo en tunnel + clear du cache
-run = "npm ci || npm install; npx expo start --tunnel --clear"
-
+modules = ["nodejs-20"]
 [agent]
 expertMode = true
+
+[nix]
+channel = "stable-25_05"
