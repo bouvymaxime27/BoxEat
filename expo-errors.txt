@@ -1,0 +1,85 @@
+
+=== INFORMATIONS SYSTÈME ===
+Date: Sun Nov  9 05:51:05 PM UTC 2025
+Node version: v20.19.3
+NPM version: 10.8.2
+
+=== DÉPENDANCES EXPO ===
+54.0.16
+
+=== DIAGNOSTIC EXPO ===
+
+  $ expo doctor is not supported in the local CLI, please use npx expo-doctor instead
+
+
+=== STRUCTURE DU PROJET ===
+total 2036
+drwxr-xr-x 1 runner runner     580 Nov  9 17:51 .
+drwxrwxrwx 1 runner runner      64 Nov  9 16:25 ..
+-rw-r--r-- 1 runner runner    2545 Nov  9 17:23 App.js
+-rw-r--r-- 1 runner runner    1157 Nov  9 17:25 app.json
+drwxr-xr-x 1 runner runner      30 Nov  4 08:51 assets
+-rw-r--r-- 1 runner runner     107 Nov  9 15:34 babel.config.js
+drwxr-xr-x 1 runner runner      20 Nov  9 16:02 .cache
+drwxr-xr-x 1 runner runner     102 Nov  9 15:57 components
+drwxr-xr-x 1 runner runner       6 Oct 28 15:31 .config
+-rw-r--r-- 1 runner runner     129 Nov  9 15:57 .env.example
+-rw-r--r-- 1 runner runner     289 Nov  9 17:51 expo-errors.txt
+-rw-r--r-- 1 runner runner 1555492 Oct 27 10:45 generated-icon.png
+-rwxr-xr-x 1 runner runner    1303 Nov  9 17:25 get-errors.sh
+drwxr-xr-x 1 runner runner     162 Nov  9 17:46 .git
+-rw-r--r-- 1 runner runner     149 Nov  8 17:47 .gitignore
+-rw-r--r-- 1 runner runner     101 Nov  9 15:34 index.js
+drwxr-xr-x 1 runner runner      26 Nov  4 15:54 jsconfig.json
+drwxr-xr-x 1 runner runner      10 Oct 27 09:05 .local
+-rw-r--r-- 1 runner runner     131 Nov  9 15:34 metro.config.js
+drwxr-xr-x 1 runner runner   11956 Nov  9 17:45 node_modules
+-rw-r--r-- 1 runner runner     944 Nov  9 17:23 package.json
+-rw-r--r-- 1 runner runner  456312 Nov  9 17:45 package-lock.json
+-rwxr-xr-x 1 runner runner     171 Nov  9 17:25 quick-fix.sh
+-rwxr-xr-x 1 runner runner    1249 Nov  9 17:25 repair-expo.sh
+-rw-r--r-- 1 runner runner     851 Nov  9 17:40 .replit
+-rw-r--r-- 1 runner runner    4069 Nov  8 17:47 replit.md
+drwxr-xr-x 1 runner runner     534 Nov  5 10:46 screens
+drwxr-xr-x 1 runner runner     194 Nov  9 17:07 src
+-rw-r--r-- 1 runner runner     360 Nov  1 20:35 theme.js
+-rw-r--r-- 1 runner runner     151 Nov  9 15:57 tsconfig.json
+drwxr-xr-x 1 runner runner      20 Nov  9 15:36 .upm
+
+=== PACKAGE.JSON ===
+
+{
+  "name": "boxeat",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start --tunnel --clear",
+    "android": "expo start --android --tunnel",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "2.0.0",
+    "@react-navigation/native": "^7.0.14",
+    "@react-navigation/native-stack": "^7.1.13",
+    "axios": "^1.7.9",
+    "expo": "~54.0.0",
+    "expo-camera": "~16.0.8",
+    "expo-linear-gradient": "~14.0.1",
+    "expo-notifications": "~0.29.12",
+    "react": "18.3.1",
+    "react-native": "0.76.5",
+    "react-native-gesture-handler": "~2.20.2",
+    "react-native-safe-area-context": "4.14.0",
+    "react-native-screens": "~4.4.0",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@expo/ngrok": "^4.1.3",
+    "@types/react": "~18.3.12",
+    "typescript": "~5.3.3"
+  }
+}
+
