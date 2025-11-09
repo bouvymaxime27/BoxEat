@@ -1,0 +1,44 @@
+
+{
+  "home": {
+    "welcome": "Hello 👋",
+    "subtitle": "Your digital canteen",
+    "menu": "View menu",
+    "cart": "My cart",
+    "subscription": "Subscription",
+    "faq": "FAQ"
+  },
+  "menu": {
+    "title": "Weekly menu",
+    "filters": {
+      "all": "All",
+      "healthy": "Healthy",
+      "veggie": "Veggie",
+      "protein": "Protein",
+      "family": "Family"
+    }
+  },
+  "cart": {
+    "title": "My cart",
+    "empty": "Your cart is empty",
+    "today": "For today",
+    "week": "Plan week",
+    "selectMachine": "Select machine",
+    "selectTime": "Pickup time",
+    "checkout": "Checkout"
+  },
+  "subscription": {
+    "standard": "Standard",
+    "premium": "Premium",
+    "enterprise": "Enterprise",
+    "balance": "Meal balance",
+    "renew": "Renew"
+  },
+  "common": {
+    "add": "Add",
+    "remove": "Remove",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back"
+  }
+}

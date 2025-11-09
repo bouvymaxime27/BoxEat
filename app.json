@@ -7,29 +7,38 @@
     "orientation": "portrait",
     "icon": "./assets/logo-boxeat.png",
     "userInterfaceStyle": "light",
+    "scheme": "boxeat",
     "splash": {
       "image": "./assets/logo-boxeat.png",
       "resizeMode": "contain",
       "backgroundColor": "#3FAE49"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.boxeat.app"
+      "bundleIdentifier": "com.boxeat.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "BoxEat a besoin d'accéder à la caméra pour scanner les QR codes."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo-boxeat.png",
         "backgroundColor": "#3FAE49"
       },
-      "package": "com.boxeat.app"
+      "package": "com.boxeat.app",
+      "permissions": ["CAMERA"]
     },
     "web": {
       "favicon": "./assets/logo-boxeat.png"
     },
-    "plugins": [],
-    "scheme": "boxeat"
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Autoriser BoxEat à utiliser la caméra pour scanner les QR codes."
+        }
+      ]
+    ]
   }
 }

@@ -5,26 +5,32 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "expo start --tunnel --clear",
-    "android": "expo start --android",
+    "start": "EXPO_NO_PREINSTALL=1 npx expo start --tunnel -c",
+    "android": "expo start --android --tunnel",
     "ios": "expo start --ios",
-    "web": "expo start --web",
-    "reset": "rm -rf node_modules package-lock.json .expo && npm install"
+    "web": "expo start --web"
   },
   "dependencies": {
     "expo": "~54.0.0",
     "expo-linear-gradient": "~14.0.1",
+    "expo-notifications": "~0.29.12",
+    "expo-camera": "~16.0.8",
+    "expo-barcode-scanner": "~14.0.2",
     "react": "18.3.1",
     "react-native": "0.76.5",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/native-stack": "^7.1.13",
     "react-native-safe-area-context": "4.14.0",
     "react-native-screens": "~4.4.0",
-    "firebase": "^11.1.0",
+    "react-native-gesture-handler": "~2.20.2",
+    "zustand": "^5.0.2",
     "axios": "^1.7.9",
-    "zustand": "^5.0.2"
+    "qrcode": "^1.5.4",
+    "@react-native-async-storage/async-storage": "2.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2"
+    "@babel/core": "^7.25.2",
+    "@types/react": "~18.3.12",
+    "typescript": "^5.3.3"
   }
 }

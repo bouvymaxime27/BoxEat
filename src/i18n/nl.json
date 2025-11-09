@@ -1,0 +1,44 @@
+
+{
+  "home": {
+    "welcome": "Hallo 👋",
+    "subtitle": "Jouw digitale kantine",
+    "menu": "Menu bekijken",
+    "cart": "Mijn winkelwagen",
+    "subscription": "Abonnement",
+    "faq": "FAQ"
+  },
+  "menu": {
+    "title": "Menu van de week",
+    "filters": {
+      "all": "Alle",
+      "healthy": "Gezond",
+      "veggie": "Vegetarisch",
+      "protein": "Eiwitrijk",
+      "family": "Familie"
+    }
+  },
+  "cart": {
+    "title": "Mijn winkelwagen",
+    "empty": "Je winkelwagen is leeg",
+    "today": "Voor vandaag",
+    "week": "Week plannen",
+    "selectMachine": "Kies een automaat",
+    "selectTime": "Ophaaltijd",
+    "checkout": "Betalen"
+  },
+  "subscription": {
+    "standard": "Standaard",
+    "premium": "Premium",
+    "enterprise": "Bedrijf",
+    "balance": "Maaltijdsaldo",
+    "renew": "Vernieuwen"
+  },
+  "common": {
+    "add": "Toevoegen",
+    "remove": "Verwijderen",
+    "cancel": "Annuleren",
+    "confirm": "Bevestigen",
+    "back": "Terug"
+  }
+}

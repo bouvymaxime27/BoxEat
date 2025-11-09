@@ -1,0 +1,44 @@
+
+{
+  "home": {
+    "welcome": "Bonjour 👋",
+    "subtitle": "Votre cantine digitale",
+    "menu": "Voir le menu",
+    "cart": "Mon panier",
+    "subscription": "Abonnement",
+    "faq": "FAQ"
+  },
+  "menu": {
+    "title": "Menu de la semaine",
+    "filters": {
+      "all": "Tous",
+      "healthy": "Healthy",
+      "veggie": "Végé",
+      "protein": "Protéiné",
+      "family": "Familial"
+    }
+  },
+  "cart": {
+    "title": "Mon panier",
+    "empty": "Votre panier est vide",
+    "today": "Pour aujourd'hui",
+    "week": "Planifier la semaine",
+    "selectMachine": "Choisir une machine",
+    "selectTime": "Heure de retrait",
+    "checkout": "Payer"
+  },
+  "subscription": {
+    "standard": "Standard",
+    "premium": "Premium",
+    "enterprise": "Entreprise",
+    "balance": "Solde repas",
+    "renew": "Renouveler"
+  },
+  "common": {
+    "add": "Ajouter",
+    "remove": "Retirer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "back": "Retour"
+  }
+}
