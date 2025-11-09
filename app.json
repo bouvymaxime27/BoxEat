@@ -39,6 +39,11 @@
           "cameraPermission": "Autoriser BoxEat à utiliser la caméra pour scanner les QR codes."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "boxeat-app"
+      }
+    }
   }
 }
