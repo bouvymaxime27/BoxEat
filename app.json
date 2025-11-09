@@ -1,23 +1,35 @@
+
 {
   "expo": {
     "name": "BoxEat",
     "slug": "boxeat",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/logo-boxeat.png",
     "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo-boxeat.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#3FAE49"
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.boxeat.app"
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/logo-boxeat.png",
+        "backgroundColor": "#3FAE49"
+      },
+      "package": "com.boxeat.app"
     },
     "web": {
-      "bundler": "metro"
-    }
+      "favicon": "./assets/logo-boxeat.png"
+    },
+    "plugins": [],
+    "scheme": "boxeat"
   }
 }
