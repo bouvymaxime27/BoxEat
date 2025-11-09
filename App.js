@@ -1,43 +1,27 @@
+// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 import HomeScreen from './src/screens/HomeScreen';
 import MenuScreen from './src/screens/MenuScreen';
 import CartScreen from './src/screens/CartScreen';
 import CheckoutScreen from './src/screens/CheckoutScreen';
-import { colors } from './src/theme';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Menu" component={MenuScreen} />
-        <Stack.Screen name="Cart" component={CartScreen} />
-        <Stack.Screen name="Checkout" component={CheckoutScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-import React from "react";
-import { Text, View } from "react-native";
-
-export default function App() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Bienvenue sur BoxEat 🍱</Text>
-    </View>
-  );
-}
-import React from "react";
-import { View, Text } from "react-native";
-
-export default function App() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Bienvenue sur BoxEat 🍱</Text>
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Menu" component={MenuScreen} />
+          <Stack.Screen name="Cart" component={CartScreen} />
+          <Stack.Screen name="Checkout" component={CheckoutScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
