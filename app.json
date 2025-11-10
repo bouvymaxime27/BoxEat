@@ -5,19 +5,36 @@
     "slug": "boxeat",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/logo-boxeat.png",
     "userInterfaceStyle": "light",
     "splash": {
+      "image": "./assets/logo-boxeat.png",
       "resizeMode": "contain",
       "backgroundColor": "#3FAE49"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.boxeat.app"
     },
     "android": {
       "adaptiveIcon": {
+        "foregroundImage": "./assets/logo-boxeat.png",
         "backgroundColor": "#3FAE49"
-      }
+      },
+      "package": "com.boxeat.app"
+    },
+    "web": {
+      "favicon": "./assets/logo-boxeat.png"
+    },
+    "sdkVersion": "54.0.0",
+    "extra": {
+      "FIREBASE_API_KEY": "your-api-key-here",
+      "FIREBASE_AUTH_DOMAIN": "your-project.firebaseapp.com",
+      "FIREBASE_PROJECT_ID": "your-project-id",
+      "FIREBASE_STORAGE_BUCKET": "your-project.appspot.com",
+      "FIREBASE_MESSAGING_SENDER_ID": "123456789",
+      "FIREBASE_APP_ID": "1:123456789:web:abcdef"
     }
   }
 }

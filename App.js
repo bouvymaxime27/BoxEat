@@ -6,7 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ReservationsProvider } from './src/context/ReservationsContext';
 
-// Import screens
+// Import screens depuis le dossier screens
 import WelcomeScreen from './screens/WelcomeScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
