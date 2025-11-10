@@ -1,6 +1,63 @@
+
+entrypoint = "index.js"
 modules = ["nodejs-20"]
+
+[env]
+EXPO_NO_TELEMETRY = "1"
+EXPO_DEVTOOLS_LISTEN_ADDRESS = "0.0.0.0"
+EXPO_USE_DEV_SERVER = "true"
+
+[interpreter]
+command = ["bash", "-lc"]
+
+[[ports]]
+localPort = 8081
+externalPort = 8081
+
+[[ports]]
+localPort = 8082
+externalPort = 80
+
+[[ports]]
+localPort = 8083
+externalPort = 3000
+
+[[ports]]
+localPort = 8084
+externalPort = 3001
+
+[workflows]
+runButton = "Start Expo Tunnel"
+
+[[workflows.workflow]]
+name = "Start Expo"
+author = 49057490
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "rm -rf node_modules/.cache .expo"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx expo start --tunnel --clear"
+
+[[workflows.workflow]]
+name = "Start Expo Tunnel"
+author = 49057490
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "rm -rf node_modules/.cache .expo"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx expo start --tunnel --clear"
+
 [agent]
 expertMode = true
-
-[nix]
-channel = "stable-25_05"
