@@ -1,23 +1,57 @@
+
 import React from 'react';
-import { ScrollView, TouchableOpacity, Text } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { colors } from '../theme';
 
 export default function CategoryChips({ categories, activeKey, onChange }) {
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{ paddingHorizontal:12, paddingVertical:4, gap:8 }}>
-      {categories.map((c) => {
-        const active = c.key === activeKey;
-        return (
-          <TouchableOpacity key={c.key} onPress={() => onChange(c.key)}
-            style={{
-              paddingHorizontal:14, paddingVertical:8, borderRadius:999, borderWidth:1,
-              borderColor: active ? '#3FAE49' : '#e6e6e6',
-              backgroundColor: active ? 'rgba(63,174,73,0.10)' : '#fff'
-            }}>
-            <Text style={{ color: active ? '#3FAE49' : '#333', fontWeight:'600' }}>{c.label}</Text>
-          </TouchableOpacity>
-        );
-      })}
+    <ScrollView 
+      horizontal 
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.container}
+    >
+      {categories.map((cat) => (
+        <TouchableOpacity
+          key={cat.key}
+          style={[
+            styles.chip,
+            activeKey === cat.key && styles.chipActive
+          ]}
+          onPress={() => onChange(cat.key)}
+        >
+          <Text style={[
+            styles.chipText,
+            activeKey === cat.key && styles.chipTextActive
+          ]}>
+            {cat.label}
+          </Text>
+        </TouchableOpacity>
+      ))}
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  chip: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    backgroundColor: colors.gray,
+    marginRight: 8,
+  },
+  chipActive: {
+    backgroundColor: colors.green,
+  },
+  chipText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.text,
+  },
+  chipTextActive: {
+    color: colors.white,
+  },
+});

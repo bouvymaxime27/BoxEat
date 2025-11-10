@@ -1,41 +1,16 @@
-
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { colors, borderRadius, spacing } from '../src/theme';
-import { Meal } from '../src/types';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { colors } from '../theme';
 
-interface MealCardProps {
-  meal: Meal;
-  onPress: () => void;
-  onAdd: () => void;
-}
-
-export default function MealCard({ meal, onPress, onAdd }: MealCardProps) {
-  const formatPrice = (cents: number) => `${(cents / 100).toFixed(2)} €`;
-
+export default function MealCard({ meal, onPress }) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Image source={{ uri: meal.imageUrl }} style={styles.image} />
+    <TouchableOpacity style={styles.card} onPress={onPress}>
       <View style={styles.content}>
-        <Text numberOfLines={1} style={styles.name}>{meal.name}</Text>
-        {meal.description && (
-          <Text numberOfLines={2} style={styles.description}>{meal.description}</Text>
-        )}
-        <View style={styles.labels}>
-          {meal.labels.slice(0, 2).map((label) => (
-            <View key={label} style={styles.label}>
-              <Text style={styles.labelText}>{label}</Text>
-            </View>
-          ))}
-        </View>
+        <Text style={styles.title}>{meal.title || meal.name}</Text>
+        <Text style={styles.description}>{meal.description || ''}</Text>
         <View style={styles.footer}>
-          <View>
-            <Text style={styles.price}>{formatPrice(meal.priceCents)}</Text>
-            <Text style={styles.calories}>{meal.calories} kcal</Text>
-          </View>
-          <TouchableOpacity onPress={onAdd} style={styles.addButton}>
-            <Text style={styles.addButtonText}>+</Text>
-          </TouchableOpacity>
+          <Text style={styles.day}>{meal.day}</Text>
+          <Text style={styles.price}>{meal.price.toFixed(2)} €</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -43,75 +18,42 @@ export default function MealCard({ meal, onPress, onAdd }: MealCardProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  card: {
     backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.gray,
-    borderRadius: borderRadius.lg,
-    overflow: 'hidden',
-    marginBottom: spacing.md,
-  },
-  image: {
-    width: '100%',
-    height: 140,
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   content: {
-    padding: spacing.md,
+    flex: 1,
   },
-  name: {
+  title: {
+    fontSize: 18,
     fontWeight: '700',
-    fontSize: 16,
     color: colors.text,
+    marginBottom: 4,
   },
   description: {
+    fontSize: 14,
     color: '#666',
-    marginTop: spacing.xs,
-    fontSize: 13,
-  },
-  labels: {
-    flexDirection: 'row',
-    marginTop: spacing.sm,
-    gap: spacing.xs,
-  },
-  label: {
-    backgroundColor: colors.gray,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 4,
-    borderRadius: borderRadius.sm,
-  },
-  labelText: {
-    fontSize: 11,
-    color: colors.text,
-    fontWeight: '600',
+    marginBottom: 8,
   },
   footer: {
-    marginTop: spacing.sm,
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  day: {
+    fontSize: 14,
+    color: '#666',
   },
   price: {
+    fontSize: 16,
     fontWeight: '700',
-    fontSize: 18,
-    color: colors.text,
-  },
-  calories: {
-    fontSize: 12,
-    color: '#999',
-    marginTop: 2,
-  },
-  addButton: {
-    backgroundColor: colors.green,
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  addButtonText: {
-    color: colors.white,
-    fontSize: 24,
-    fontWeight: '700',
+    color: colors.green,
   },
 });

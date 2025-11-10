@@ -1,14 +1,17 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC7X5ImP_B9qT9evU8e3rw1V6oDVP74JZo",
-  authDomain: "boxeat-ec544.firebaseapp.com",
-  projectId: "boxeat-ec544",
-  storageBucket: "boxeat-ec544.firebasestorage.app",
-  messagingSenderId: "411768873365",
-  appId: "1:411768873365:web:ae2f285e8901ad73f3d69c"
+  apiKey: process.env.FIREBASE_API_KEY || "your-api-key",
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN || "your-app.firebaseapp.com",
+  projectId: process.env.FIREBASE_PROJECT_ID || "your-project-id",
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "your-app.appspot.com",
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "123456789",
+  appId: process.env.FIREBASE_APP_ID || "1:123456789:web:abcdef"
 };
 
 const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
 export const db = getFirestore(app);
