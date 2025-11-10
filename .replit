@@ -1,3 +1,5 @@
+
+entrypoint = "index.js"
 modules = ["nodejs-20"]
 
 [env]
@@ -8,12 +10,6 @@ EXPO_USE_DEV_SERVER = "true"
 [interpreter]
 command = ["bash", "-lc"]
 
-# Installe les deps si besoin puis démarre Expo en tunnel
-run = "npm ci || npm install --legacy-peer-deps; npx expo start --tunnel --clear"
-
-[agent]
-expertMode = true
-
 [[ports]]
 localPort = 8081
 externalPort = 8081
@@ -23,15 +19,19 @@ localPort = 8082
 externalPort = 80
 
 [[ports]]
-localPort = 8083
+localPort = 19000
 externalPort = 3000
 
 [[ports]]
-localPort = 8084
+localPort = 19001
 externalPort = 3001
 
+[[ports]]
+localPort = 19006
+externalPort = 5000
+
 [workflows]
-runButton = "Start Expo"
+runButton = "Start Expo Tunnel"
 
 [[workflows.workflow]]
 name = "Start Expo"
@@ -45,6 +45,19 @@ args = "rm -rf node_modules/.cache .expo"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm install"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx expo start --tunnel --clear"
+
+[[workflows.workflow]]
+name = "Start Expo Tunnel"
+author = 49057490
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "rm -rf node_modules/.cache .expo"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
