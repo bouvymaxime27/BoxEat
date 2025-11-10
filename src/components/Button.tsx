@@ -77,3 +77,72 @@ const styles = StyleSheet.create({
     color: colors.green,
   },
 });
+import React from 'react';
+import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { colors, spacing, borderRadius } from '../theme';
+
+interface ButtonProps {
+  title: string;
+  onPress: () => void;
+  variant?: 'primary' | 'secondary' | 'outline';
+  disabled?: boolean;
+  loading?: boolean;
+}
+
+export default function Button({ 
+  title, 
+  onPress, 
+  variant = 'primary', 
+  disabled = false,
+  loading = false 
+}: ButtonProps) {
+  const getBackgroundColor = () => {
+    if (disabled) return '#ccc';
+    if (variant === 'secondary') return colors.orange;
+    if (variant === 'outline') return 'transparent';
+    return colors.green;
+  };
+
+  const getTextColor = () => {
+    if (disabled) return '#999';
+    if (variant === 'outline') return colors.green;
+    return colors.white;
+  };
+
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      disabled={disabled || loading}
+      style={[
+        styles.button,
+        { backgroundColor: getBackgroundColor() },
+        variant === 'outline' && styles.outline,
+      ]}
+    >
+      {loading ? (
+        <ActivityIndicator color={getTextColor()} />
+      ) : (
+        <Text style={[styles.text, { color: getTextColor() }]}>{title}</Text>
+      )}
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  button: {
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
+    borderRadius: borderRadius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 48,
+  },
+  outline: {
+    borderWidth: 2,
+    borderColor: colors.green,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '700',
+  },
+});

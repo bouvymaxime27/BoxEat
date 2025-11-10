@@ -69,3 +69,82 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { colors, spacing, borderRadius } from '../theme';
+
+interface QuantityStepperProps {
+  value: number;
+  onIncrement: () => void;
+  onDecrement: () => void;
+  min?: number;
+  max?: number;
+}
+
+export default function QuantityStepper({ 
+  value, 
+  onIncrement, 
+  onDecrement,
+  min = 1,
+  max = 99 
+}: QuantityStepperProps) {
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity
+        onPress={onDecrement}
+        disabled={value <= min}
+        style={[styles.button, value <= min && styles.buttonDisabled]}
+      >
+        <Text style={[styles.buttonText, value <= min && styles.buttonTextDisabled]}>−</Text>
+      </TouchableOpacity>
+      
+      <View style={styles.valueContainer}>
+        <Text style={styles.value}>{value}</Text>
+      </View>
+      
+      <TouchableOpacity
+        onPress={onIncrement}
+        disabled={value >= max}
+        style={[styles.button, value >= max && styles.buttonDisabled]}
+      >
+        <Text style={[styles.buttonText, value >= max && styles.buttonTextDisabled]}>+</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  button: {
+    width: 36,
+    height: 36,
+    borderRadius: borderRadius.sm,
+    backgroundColor: colors.green,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonDisabled: {
+    backgroundColor: colors.gray,
+  },
+  buttonText: {
+    color: colors.white,
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  buttonTextDisabled: {
+    color: '#999',
+  },
+  valueContainer: {
+    minWidth: 40,
+    alignItems: 'center',
+  },
+  value: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: colors.text,
+  },
+});
