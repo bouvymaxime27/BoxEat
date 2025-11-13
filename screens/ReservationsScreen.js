@@ -3,7 +3,7 @@ import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, SectionList, Alert, Animated } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import { useReservations } from '../src/context/ReservationsContext';
-import { db } from '../config/firebase';       // ou { auth } si besoin
+import { db } from '../src/config/firebase';       // ou { auth } si besoin
 // + tes imports de 'firebase/firestore' (addDoc, doc, etc.)
 
 const formatEuro = (v) => {

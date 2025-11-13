@@ -1,60 +1,38 @@
-import React, { createContext, useContext, useState } from 'react';
+// src/context/ReservationsContext.js
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { onSnapshot, collection, deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../config/firebase';
 
 const ReservationsContext = createContext();
 
-export function ReservationsProvider({ children }) {
-  // [{rid, id, title, day, price, qty, status}]
+export const ReservationsProvider = ({ children }) => {
   const [reservations, setReservations] = useState([]);
 
-  // CRUD local minimal
-  const addReservation = (meal, qty = 1) => {
-    const newReservation = {
-      rid: Date.now().toString(), // Simplified rid generation
-      id: meal.id,
-      title: meal.title || meal.name, // Handles potential name property
-      price: meal.price,
-      qty,
-      day: meal.day,
-      status: 'confirmé', // Hardcoded status
-      image: meal.imageUrl || null, // Handles optional image
-    };
-    setReservations(prev => [...prev, newReservation]);
-  };
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'reservations'), (snapshot) => {
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setReservations(data);
+    });
 
-  const updateReservation = (rid, patch) => {
-    // This function was removed in the edited snippet.
-    // If it's intended to be kept, it would need to be added back.
-    // For now, it's omitted as per the edited snippet.
-  };
+    return unsubscribe;
+  }, []);
 
-  const removeReservation = (rid) => {
-    setReservations(prev => prev.filter(r => r.rid !== rid));
-  };
-
-  const clearReservations = () => {
-    setReservations([]);
-  };
-
-  // The memoized value is simplified as Firebase-related logic is removed.
-  const value = {
-    reservations,
-    addReservation,
-    removeReservation,
-    clearReservations,
-    // updateReservation is not included as it was removed from the edited snippet.
+  const removeReservation = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'reservations', id));
+    } catch (error) {
+      console.error('Erreur de suppression :', error);
+    }
   };
 
   return (
-    <ReservationsContext.Provider value={value}>
+    <ReservationsContext.Provider value={{ reservations, removeReservation }}>
       {children}
     </ReservationsContext.Provider>
   );
-}
+};
 
-export function useReservations() {
-  const context = useContext(ReservationsContext);
-  if (!context) {
-    throw new Error('useReservations must be used within ReservationsProvider');
-  }
-  return context;
-}
+export const useReservations = () => useContext(ReservationsContext);

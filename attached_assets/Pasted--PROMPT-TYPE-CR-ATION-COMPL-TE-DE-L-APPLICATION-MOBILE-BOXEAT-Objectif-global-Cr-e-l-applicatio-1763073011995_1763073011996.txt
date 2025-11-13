@@ -1,0 +1,152 @@
+ PROMPT TYPE – CRÉATION COMPLÈTE DE L’APPLICATION MOBILE BOXEAT
+🎯 Objectif global
+Crée l’application mobile complète “BoxEat”, une cantine digitale connectée permettant aux utilisateurs de commander, payer et retirer leurs repas frais sous vide directement depuis une machine BoxEat intelligente et réfrigérée, disponible sur leur lieu de travail, campus, hôpital, ou autre site.
+L’application doit être :
+• simple, fluide et épurée (style Apple / HelloFresh / TooGoodToGo),
+• connectée à un back-office cloud et aux machines BoxEat physiques,
+• compatible iOS et Android,
+• structurée pour évoluer vers une version B2C et internationale.
+🧠 Concept global de BoxEat
+BoxEat = cantine intelligente pour entreprises, hôpitaux, universités et sites publics.
+Les repas sont :
+• préparés par des fournisseurs partenaires (SelfNutricare, MuscleMeat, etc.),
+• livrés sous vide avec une DLC de 7 jours,
+• stockés dans la machine BoxEat réfrigérée à 2–4 °C,
+• disponibles pour le midi, le soir, ou pour toute la famille.
+L’utilisateur commande via l’app :
+• pour un jour ou toute la semaine,
+• paye via CB, Bancontact, Apple Pay, Google Pay, Sodexo, Edenred, Monizze,
+• reçoit un QR code unique,
+• scanne à la machine → le casier ou la trappe robotisée s’ouvre automatiquement,
+• peut réchauffer son plat si la machine dispose du micro-ondes intégré.
+📱 Structure & Navigation
+🔹 Écran 1 – Accueil
+• Salutation personnalisée (“Bonjour Maxime 👋”).
+• Menu rapide :
+• 🥗 “Voir le menu de la semaine”
+• 🛒 “Mon panier”
+• 💳 “Mon abonnement”
+• ❓ “FAQ / Assistance”
+• Suggestion du jour (“Curry de poulet coco – 8,90 €”).
+• Barre de navigation fixe : Accueil | Menu | Panier | Profil.
+Design :
+• Fond blanc et vert BoxEat (#3FAE49).
+• Icônes arrondies, interface ultra-légère.
+• Animation douce d’apparition (fade-in, 0.2s).
+🔹 Écran 2 – Menu de la semaine
+• Liste scrollable avec visuels HD des plats.
+• Filtres : “Healthy”, “Végé”, “Protéiné”, “Familial”.
+• Tri par jour : Lundi → Dimanche.
+• Stock visible (petit point vert/orange/rouge selon disponibilité).
+• Bouton flottant : “Commander la semaine complète”.
+🧩 Fiche plat (au clic) :
+• Grande photo du plat.
+• Nom complet, calories, allergènes, description traiteur.
+• Prix unitaire.
+• Bouton “Ajouter au panier” + sélecteur de quantité.
+• Logo du fournisseur (ex. SelfNutricare).
+🔹 Écran 3 – Panier
+• Liste des plats sélectionnés.
+• Sous-total, TVA, total TTC.
+• Choix :
+• “Commander pour aujourd’hui”,
+• “Planifier pour la semaine”.
+• Sélection du lieu de retrait (machine + adresse).
+• Choix d’heure de retrait.
+• Bouton “Payer maintenant”.
+🔹 Écran 4 – Paiement
+• Intégration Stripe + Sodexo/Edenred/Monizze SDK.
+• Récapitulatif commande.
+• Options de paiement : CB, Bancontact, Apple Pay, Google Pay, chèques-repas.
+• Validation → génération automatique d’un QR code.
+• Envoi du reçu par email.
+✅ Message final :
+“Merci ! Vos plats seront disponibles dès [date]. Scannez ce QR code à la machine BoxEat pour les récupérer.”
+🔹 Écran 5 – Mes commandes
+• Historique complet (passées / à venir).
+• Statuts : “Préparation”, “Stocké”, “Prêt au retrait”, “Retiré”.
+• QR code intégré pour chaque commande.
+• Bouton “Afficher QR” → ouverture plein écran.
+• Option d’annulation avant préparation (J-1).
+🔹 Écran 6 – Retrait machine
+• Bouton “Scanner mon QR code”.
+• L’app ouvre la caméra → scan du QR.
+• Connexion API avec la machine :
+• POST /api/machine/open/{order_id}
+• La trappe ou le pick-up robotisé s’ouvre.
+• Animation de récupération du plat.
+• Option “Réchauffer maintenant” si micro-ondes intégré.
+• Message : “Bon appétit Maxime ! 🍽️”.
+🔹 Écran 7 – Abonnements
+• Choix de formules :
+• Standard : 10 repas/mois → 89 €
+• Premium : 20 repas/mois → 160 €
+• Entreprise : personnalisé
+• Gestion automatique du solde.
+• Notification push quand il reste moins de 2 repas.
+• Paiement récurrent (Stripe).
+• Historique factures téléchargeables.
+🔹 Écran 8 – Profil utilisateur
+• Données personnelles, entreprise, email.
+• Moyens de paiement enregistrés.
+• Historique factures PDF.
+• Langues : FR / NL / EN.
+• Accès “Aide & Support”.
+🔹 Écran 9 – FAQ / Assistance
+• Liste thématique :
+• 💰 Paiements & remboursements
+• 🧊 Conservation des plats
+• 🧾 Abonnements & résiliation
+• 🤝 Aide technique & contact BoxEat
+• Formulaire simple de contact ou chat WhatsApp Business.
+☁️ Back-end & Cloud
+🔸 API REST
+• GET /stock/{machine_id} – état du stock.
+• POST /order/create – création commande.
+• POST /order/pay – validation paiement.
+• POST /machine/open/{id} – ouverture trappe.
+• GET /machine/status/{id} – température, état froid, disponibilité.
+🔸 Technologies recommandées
+• Backend : Python (FastAPI) ou Node.js (NestJS).
+• DB : PostgreSQL.
+• Auth : JWT + OAuth Google/Apple.
+• Stockage images : AWS S3.
+• Hosting : AWS / GCP / OVH Cloud.
+• Notifications : Firebase / APNS.
+• Monitoring : Grafana + Prometheus.
+🧩 Dashboard Web BoxEat Cloud
+Interface web reliée au back-end pour :
+• gérer les menus (plats, prix, fournisseurs, DLC),
+• suivre les ventes, stocks et températures,
+• gérer les abonnements et paiements,
+• afficher les alertes (panne, stock faible, dérive température),
+• exporter des rapports (PDF, CSV).
+Vue RH employeur :
+• Statistiques anonymisées (repas pris, satisfaction, top plats).
+• Gestion subvention repas (1–2 €/repas).
+🎨 Design System
+ÉlémentDétailsPalette principaleVert #3FAE49 / Orange #F47C20 / Blanc purTypographiePoppins / MontserratStyleMinimaliste, clair, sans bordures lourdesIcônesMaterial Design arrondiesBoutonsCoins 2xl arrondis, ombre douceTransitionsFade / slide léger (0.2s)Logos & brandingBoxEat vert et blanc (style Apple clean) 
+🧠 Fonctionnalités intelligentes (phase 2)
+• IA prédictive de stock selon météo et historique.
+• Recommandation de repas selon habitudes.
+• Gamification (points fidélité, repas offerts).
+• API nutrition pour affichage valeurs santé.
+🧾 Livrables attendus
+• App iOS & Android (React Native ou Flutter).
+• Backend API + dashboard cloud.
+• Documentation Swagger / Postman.
+• Maquettes Figma haute fidélité (toutes pages).
+• Kit marketing : captures d’écran, icônes, visuels.
+• Version bêta pour test sur 3 sites pilotes.
+💡 Inspiration visuelle
+Le design doit ressembler aux images suivantes (réalisées pour BoxEat) :
+• Interface utilisateur iPhone BoxEat (menus & paiements).
+• Machine robotisée BoxEat blanche avec pick-up lumineux.
+• Dashboard cloud professionnel.
+• Logo officiel vert & blanc.
+(Le développeur doit respecter cette esthétique moderne et épurée.)
+✅ Objectif final
+Créer une application complète et fonctionnelle :
+• intuitive, rapide, connectée,
+• au look professionnel et cohérent avec la machine BoxEat,
+• qui peut être testée immédiatement dans un pilote réel avec traiteurs et entreprises partenaires.

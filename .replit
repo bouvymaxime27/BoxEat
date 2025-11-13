@@ -19,4 +19,11 @@ args = "npx expo start --tunnel --clear"
 
 [[ports]]
 localPort = 8081
+externalPort = 3000
+
+[[ports]]
+localPort = 8082
 externalPort = 80
+
+[[ports]]
+localPort = 8083
