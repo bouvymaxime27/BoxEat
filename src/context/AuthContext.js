@@ -1,5 +1,6 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 
 const AuthContext = createContext();
@@ -7,6 +8,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -17,15 +19,49 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
+  const login = async (email, password) => {
+    try {
+      setError(null);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      return userCredential.user;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
+  const register = async (email, password) => {
+    try {
+      setError(null);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      return userCredential.user;
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
+  };
+
   const logout = async () => {
-    await signOut(auth);
+    try {
+      setError(null);
+      await signOut(auth);
+    } catch (err) {
+      setError(err.message);
+      throw err;
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, logout }}>
-      {!loading && children}
+    <AuthContext.Provider value={{ user, loading, error, login, register, logout }}>
+      {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within AuthProvider');
+  }
+  return context;
+};

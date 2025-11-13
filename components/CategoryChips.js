@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
-import { colors } from '../theme';
+import { ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { colors, spacing, borderRadius, typography } from '../theme';
 
 export default function CategoryChips({ categories, activeKey, onChange }) {
   return (
-    <ScrollView 
-      horizontal 
+    <ScrollView
+      horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.container}
     >
@@ -15,14 +15,17 @@ export default function CategoryChips({ categories, activeKey, onChange }) {
           key={cat.key}
           style={[
             styles.chip,
-            activeKey === cat.key && styles.chipActive
+            activeKey === cat.key && styles.chipActive,
           ]}
           onPress={() => onChange(cat.key)}
+          activeOpacity={0.7}
         >
-          <Text style={[
-            styles.chipText,
-            activeKey === cat.key && styles.chipTextActive
-          ]}>
+          <Text
+            style={[
+              styles.chipText,
+              activeKey === cat.key && styles.chipTextActive,
+            ]}
+          >
             {cat.label}
           </Text>
         </TouchableOpacity>
@@ -33,21 +36,25 @@ export default function CategoryChips({ categories, activeKey, onChange }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    gap: spacing.sm,
+    backgroundColor: colors.white,
   },
   chip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    backgroundColor: colors.gray,
-    marginRight: 8,
+    paddingHorizontal: spacing.md + 4,
+    paddingVertical: spacing.sm,
+    borderRadius: borderRadius.round,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   chipActive: {
-    backgroundColor: colors.green,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
   },
   chipText: {
-    fontSize: 14,
+    ...typography.bodySmall,
     fontWeight: '600',
     color: colors.text,
   },
