@@ -1,38 +1,62 @@
-// src/context/ReservationsContext.js
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onSnapshot, collection, deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../config/firebase';
+
+import React, { createContext, useContext, useState } from 'react';
 
 const ReservationsContext = createContext();
 
 export const ReservationsProvider = ({ children }) => {
   const [reservations, setReservations] = useState([]);
 
-  useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'reservations'), (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setReservations(data);
-    });
+  const addReservation = (orderData) => {
+    const newReservation = {
+      id: Date.now().toString(),
+      code: orderData.code || `BX-${Date.now().toString().slice(-6)}`,
+      items: orderData.items || [],
+      total: orderData.total || 0,
+      status: 'Préparation',
+      date: new Date().toISOString(),
+      pickupTime: orderData.pickupTime || null,
+      pickupLocation: orderData.pickupLocation || 'Machine BoxEat principale',
+    };
+    
+    setReservations(prev => [newReservation, ...prev]);
+    return newReservation;
+  };
 
-    return unsubscribe;
-  }, []);
+  const updateReservationStatus = (id, newStatus) => {
+    setReservations(prev =>
+      prev.map(res => res.id === id ? { ...res, status: newStatus } : res)
+    );
+  };
 
-  const removeReservation = async (id) => {
-    try {
-      await deleteDoc(doc(db, 'reservations', id));
-    } catch (error) {
-      console.error('Erreur de suppression :', error);
-    }
+  const getReservationByCode = (code) => {
+    return reservations.find(res => res.code === code);
+  };
+
+  const cancelReservation = (id) => {
+    setReservations(prev =>
+      prev.map(res => res.id === id ? { ...res, status: 'Annulé' } : res)
+    );
   };
 
   return (
-    <ReservationsContext.Provider value={{ reservations, removeReservation }}>
+    <ReservationsContext.Provider
+      value={{
+        reservations,
+        addReservation,
+        updateReservationStatus,
+        getReservationByCode,
+        cancelReservation,
+      }}
+    >
       {children}
     </ReservationsContext.Provider>
   );
 };
 
-export const useReservations = () => useContext(ReservationsContext);
+export const useReservations = () => {
+  const context = useContext(ReservationsContext);
+  if (!context) {
+    throw new Error('useReservations must be used within ReservationsProvider');
+  }
+  return context;
+};
