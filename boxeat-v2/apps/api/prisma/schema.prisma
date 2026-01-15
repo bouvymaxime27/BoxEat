@@ -1,0 +1,223 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  COMPANY_ADMIN
+  OPERATOR
+  ADMIN
+}
+
+enum MachineStatus {
+  ACTIVE
+  MAINTENANCE
+  OFFLINE
+}
+
+enum OrderStatus {
+  CREATED
+  PAID
+  READY
+  PICKED_UP
+  CANCELLED
+  REFUNDED
+}
+
+enum AlertStatus {
+  OPEN
+  ACK
+  RESOLVED
+}
+
+enum AlertType {
+  TEMP_HIGH
+  TEMP_LOW
+  STOCK_LOW
+  DOOR_OPEN
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  role         Role
+  name         String
+  phone        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  orders       Order[]
+  auditLogs    AuditLog[]
+}
+
+model Company {
+  id           String          @id @default(uuid())
+  name         String
+  vatNumber    String?
+  address      String
+  billingEmail String
+  createdAt    DateTime        @default(now())
+  members      CompanyMember[]
+  machines     Machine[]
+}
+
+model CompanyMember {
+  id                 String   @id @default(uuid())
+  companyId          String
+  userId             String
+  role               Role
+  mealVoucherBalance Int      @default(0)
+  createdAt          DateTime @default(now())
+  company            Company  @relation(fields: [companyId], references: [id])
+  user               User     @relation(fields: [userId], references: [id])
+}
+
+model Machine {
+  id            String        @id @default(uuid())
+  name          String
+  locationLabel String
+  address       String
+  lat           Float
+  lng           Float
+  status        MachineStatus
+  companyId     String?
+  createdAt     DateTime      @default(now())
+  company       Company?      @relation(fields: [companyId], references: [id])
+  slots         MachineSlot[]
+  menus         Menu[]
+  orders        Order[]
+  readings      TemperatureReading[]
+  alerts        Alert[]
+}
+
+model MachineSlot {
+  id            String   @id @default(uuid())
+  machineId     String
+  slotCode      String
+  productId     String
+  capacity      Int
+  currentStock  Int
+  minStockAlert Int
+  updatedAt     DateTime @updatedAt
+  machine       Machine  @relation(fields: [machineId], references: [id])
+  product       Product  @relation(fields: [productId], references: [id])
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  allergens   String[]
+  nutrition   String?
+  priceCents  Int
+  vatRate     Float
+  imageUrl    String?
+  active      Boolean
+  slots       MachineSlot[]
+  menuItems   MenuItem[]
+  orderItems  OrderItem[]
+}
+
+model Menu {
+  id        String     @id @default(uuid())
+  name      String
+  startAt   DateTime
+  endAt     DateTime
+  machineId String?
+  active    Boolean
+  machine   Machine?   @relation(fields: [machineId], references: [id])
+  items     MenuItem[]
+}
+
+model MenuItem {
+  id                      String   @id @default(uuid())
+  menuId                  String
+  productId               String
+  priority                Int
+  availableStockOverride  Int?
+  menu                    Menu     @relation(fields: [menuId], references: [id])
+  product                 Product  @relation(fields: [productId], references: [id])
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  userId     String
+  machineId  String
+  status     OrderStatus
+  totalCents Int
+  createdAt  DateTime    @default(now())
+  user       User        @relation(fields: [userId], references: [id])
+  machine    Machine     @relation(fields: [machineId], references: [id])
+  items      OrderItem[]
+  payment    Payment?
+  pickup     PickupToken?
+}
+
+model OrderItem {
+  id            String @id @default(uuid())
+  orderId       String
+  productId     String
+  qty           Int
+  unitPriceCents Int
+  vatRate       Float
+  order         Order  @relation(fields: [orderId], references: [id])
+  product       Product @relation(fields: [productId], references: [id])
+}
+
+model Payment {
+  id                    String   @id @default(uuid())
+  orderId               String   @unique
+  provider              String
+  status                String
+  stripePaymentIntentId String?
+  amountCents           Int
+  createdAt             DateTime @default(now())
+  order                 Order    @relation(fields: [orderId], references: [id])
+}
+
+model PickupToken {
+  id        String   @id @default(uuid())
+  orderId   String   @unique
+  token     String
+  qrPayload String
+  expiresAt DateTime
+  usedAt    DateTime?
+  order     Order    @relation(fields: [orderId], references: [id])
+}
+
+model TemperatureReading {
+  id           String   @id @default(uuid())
+  machineId    String
+  temperatureC Float
+  humidity     Float?
+  createdAt    DateTime @default(now())
+  machine      Machine  @relation(fields: [machineId], references: [id])
+}
+
+model Alert {
+  id         String      @id @default(uuid())
+  machineId  String
+  type       AlertType
+  severity   String
+  message    String
+  status     AlertStatus
+  createdAt  DateTime    @default(now())
+  resolvedAt DateTime?
+  machine    Machine     @relation(fields: [machineId], references: [id])
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  actorUserId String
+  action      String
+  entityType  String
+  entityId    String
+  metadata    Json
+  createdAt   DateTime @default(now())
+  actor       User     @relation(fields: [actorUserId], references: [id])
+}
