@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "BoxEat",
+    "slug": "boxeat-v2",
+    "scheme": "boxeat",
+    "sdkVersion": "54.0.0",
+    "platforms": ["ios", "android"],
+    "extra": {
+      "router": {
+        "origin": false
+      }
+    }
+  }
+}
